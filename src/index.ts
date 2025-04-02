@@ -49,3 +49,48 @@ const myBuick = new Car("Buick", "Regal");
 myBuick.wheels = myBuick.wheels - 1;
 console.log(myBuick.wheels);
 console.log(myBuick.model);
+
+// Part 3 Creating a Generic Class
+
+class NCycle<T> {
+  status: "started" | "stopped" = "started";
+
+  constructor(public make: T | T[], public model: T | T[], public wheels: T) {
+    this.make = make;
+    this.model = model;
+    this.wheels = wheels;
+  }
+  start() {
+    this.status = "started";
+  }
+  stop() {
+    this.status = "stopped";
+  }
+  print(index: number = 0): void {
+    if (!(this.make instanceof Array) && !(this.model instanceof Array)) {
+      console.log(`This is a ${this.make} ${this.model} NCycle.`);
+    } else if (this.make instanceof Array && this.model instanceof Array) {
+      `This NCycle has a ${this.make[index]} ${this.model[index]} at ${index}.`;
+    } else {
+      console.log("This NCycle was not created properly.");
+    }
+  }
+
+  printAll(): void {
+    if (
+      this.make instanceof Array &&
+      this.model instanceof Array &&
+      this.model.length === this.make.length
+    ) {
+      for (let i = 0; i < this.make.length; i++) {
+        this.print(i);
+      }
+    } else if (this.make instanceof String && this.model instanceof String) {
+      this.print();
+    } else {
+      console.log("This NCycle was not created properly.");
+    }
+  }
+}
+
+// Part 4: Testing
